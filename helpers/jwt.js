@@ -5,4 +5,8 @@ const generateToken = (payload) => {
     return jwt.sign(payload, secret);
 }
 
-module.exports = { generateToken }
+const verifyToken = (token) => {
+    return jwt.verify(token, secret);
+}
+
+module.exports = { generateToken, verifyToken }
