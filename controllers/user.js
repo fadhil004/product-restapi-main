@@ -5,7 +5,7 @@ const User = require('../models').user
 
 class UserController{
 
-        static create(req, res) {
+        static create(req, res, next) {
             const { email, password} = req.body
             User.create({
                 email,
@@ -14,12 +14,10 @@ class UserController{
             .then(user => {
                 res.status(201).json({user: user})
             })
-            .catch(err => {
-                res.status(400).json({err})
-            })
+            .catch(next)
         }
 
-        static login(req, res) {
+        static login(req, res, next) {
             const { email, password } = req.body
             User.findOne({
                 where: {
@@ -35,12 +33,10 @@ class UserController{
                     let token = generateToken(payload)
                     res.status(200).json({id: user.id, email: user.email, token}) //usahakan tidak lempar password utk keamanan
                 } else {
-                    res.status(400).json({err: 'invalid email/password'})
+                    next({message: 'invalid email/password', status: 401})
                 }
             }) 
-            .catch(err => {
-                res.status(400).json({err: 'invalid email/password'})
-            })
+            .catch(next)
         }
 }
 

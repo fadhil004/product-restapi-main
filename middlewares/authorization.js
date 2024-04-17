@@ -10,11 +10,11 @@ const authorization = (req, res ,next) => {
             if (product.userId === userId){
                 next()
             } else {
-                res.status(403).json({err: 'Access forbidden'})
+                next({status: 403,message: 'Access forbidden'})
             }
         })
     } catch (error) {
-        res.status(403).json({err: 'Access forbidden'})
+        next({status: 403, message: 'Access forbidden'})
     }
 }
 

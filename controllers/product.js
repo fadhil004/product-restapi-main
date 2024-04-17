@@ -2,7 +2,7 @@ const Product = require('../models').Product;
 
 class ProductController {
 
-    static create(req, res) {
+    static create(req, res, next) {
         const {brand, tag, price, stock, image_url} = req.body
         const userId = req.decoded.id
         Product.create({
@@ -16,32 +16,26 @@ class ProductController {
         .then(product => {
             res.status(201).json(product)
         })
-        .catch(err => {
-            res.status(400).json({err: err.message})
-        })
+        .catch(next)
     }
 
-    static readAll(req, res) {
+    static readAll(req, res, next) {
         Product.findAll()
         .then(product => {
             res.status(200).json(product)
         })
-        .catch(err => {
-            res.status(400).json({err: err.message})
-        })
+        .catch(next)
     }
 
-    static readOne(req, res) {
+    static readOne(req, res, next) {
         Product.findByPk(req.params.id)
         .then(product => {
             res.status(200).json(product)
         })
-        .catch(err => {
-            res.status(400).json({err: err.message})
-        })
+        .catch(next)
     }
 
-    static update(req, res) {
+    static update(req, res, next) {
         Product.update(req.body, {
             where: {
                 id: req.params.id
@@ -51,12 +45,10 @@ class ProductController {
         .then(result => {
             res.status(200).json(result)
         })
-        .catch(err => {
-            res.status(400).json({err: err.message})
-        })
+        .catch(next)
     }
 
-    static delete(req, res) {
+    static delete(req, res, next) {
         Product.destroy({
             where: {
                 id: req.params.id
@@ -65,9 +57,7 @@ class ProductController {
         .then(result => {
             res.status(200).json(result)
         })
-        .catch(err => {
-            res.status(400).json({err: err.message})
-        })
+        .catch(next)
     }
 }
 

@@ -7,7 +7,7 @@ const authentication = (req, res, next) => {
         req.decoded = decode
         next()
     } catch (err) {
-        res.status(401).json({err: 'You should login first!'})
+        next({message: 'You should login first!', status: 400})
     }
 }
 
