@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router()
 const ProductController = require('../controllers/product')
+const UserController = require('../controllers/user')
+
+router.post('/register', UserController.create)
 
 router.post('/products', ProductController.create)
 router.get('/products', ProductController.readAll)
