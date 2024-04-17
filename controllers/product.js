@@ -4,12 +4,14 @@ class ProductController {
 
     static create(req, res) {
         const {brand, tag, price, stock, image_url} = req.body
+        const userId = req.decoded.id
         Product.create({
             brand,
             tag,
             stock: Number(stock),
             price: Number(price),
-            image_url
+            image_url,
+            userId: userId
         })
         .then(product => {
             res.status(201).json(product)
