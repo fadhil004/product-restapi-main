@@ -5,19 +5,19 @@ describe('authentication', () => {
     test('authentication is a function', () => { 
         expect(typeof authentication).toBe('function')
      })
-    //  test('authentication call verify token', () => {
-    //     let req = {
-    //         headers: {
-    //             token: 'any token'
-    //         }
-    //     }
+     test('authentication call verify token', () => {
+        let req = {
+            headers: {
+                token: 'any token'
+            }
+        }
 
-    //     let res = jest.fn()
-    //     let next = jest.fn()
+        let res = jest.fn()
+        let next = jest.fn()
 
-    //     jest.spyOn(jwt,'verifyToken').mockResolvedValueOnce({})
+        jest.spyOn(jwt,'verifyToken').mockResolvedValueOnce({})
 
-    //     authentication(req,res, next)
-    //     expect(jwt.verifyToken).toHaveBeenCalled()
-    //  })
+        authentication(req,res, next)
+        expect(jwt.verifyToken).toHaveBeenCalled()
+     })
  })
