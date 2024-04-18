@@ -5,5 +5,12 @@
     "database": "rest_api_test",
     "host": "127.0.0.1",
     "dialect": "postgres"
+  },
+  "testing": {
+    "username": "postgres",
+    "password": "inirahasia",
+    "database": "rest_api_test",
+    "host": "127.0.0.1",
+    "dialect": "postgres"
   }
 }
