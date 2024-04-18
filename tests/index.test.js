@@ -1,46 +1,32 @@
-//testing asynchronus process
-const axios = require('axios');
-
-//promise
-// const getFact = () => {
-//     let endpoint = 'http://cat-fact.herokuapp.com/facts'
-//     return axios.get(endpoint)
-// }
-
-// describe('promise', () => {
-//     test('the data from getFacts is object', () => {
-//         return getFact().then(({data}) => {
-//             expect(typeof data).toBe('object')
-//         })
-//     })
-// })
-
-
-//async
-// const getFact = async () => {
-//     let endpoint = 'http://cat-fact.herokuapp.com/facts'
-//     return axios.get(endpoint)
-// }
-
-// describe('async-await', () => {
-//     test('the data from getFacts is object', async () => {
-//         const data = await getFact()
-//         expect(typeof data).toBe('object')
-//     })
-// })
-
-//callback
-const getFact = (cb) => {
-    let endpoint = 'http://cat-fact.herokuapp.com/facts'
-    return cb(axios.get(endpoint))
+class Error {
+    constructor(status, message) {
+        this.status = status
+        this.message = message
+    }
 }
 
-describe('callback', () => {
-    function callback(data) {
-        test('data from getFact if object', () => {
-            expect(typeof data).toBe('object')
-        })
-    }
+class DivideError extends Error {}
 
-    getFact(callback)
-})
+const divideCalculation1 = (n1, n2) => {
+    if (n1 === 0 || n2 === 0) throw new DivideError(401, 'nilai nol invalid')
+}
+
+describe('Divide', () => { 
+    test('invalid input 0: should throw error', () => {
+        expect(() => divideCalculation1(0,1)).toThrow(DivideError)
+    })
+ })
+
+ const divideCalculation2 = (n1, n2) => {
+    if (n1 === 0 || n2 === 0) return new DivideError(401, 'nilai nol invalid')
+}
+
+
+ describe('Divide', () => { 
+    test('invalid input 0: should throw error', () => {
+        const result = divideCalculation2(0,1)
+        expect(result).toBeInstanceOf(DivideError)
+        expect(result).toHaveProperty('status')
+        expect(result).toHaveProperty('message')
+    })
+ })
