@@ -24,3 +24,5 @@ app.listen(port, () => {
 // }
 
 // main()
+
+module.exports = {app}
